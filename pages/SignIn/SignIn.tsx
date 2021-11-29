@@ -1,0 +1,64 @@
+import React from "react";
+import {
+  ScrollView,
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Image,
+} from "react-native";
+import { StatusHeight, PaddingHorizontal } from "./../../theme.config";
+import {
+  FormLabel,
+  FormInput,
+  FormItem,
+  FormSignInBtn,
+} from "../../components/Form/FormComponent";
+
+interface ISignIn {}
+
+const LOGO = require("../../assets/images/logo.png");
+
+const SignIn: React.FC = (props: ISignIn) => {
+  return (
+    <ScrollView style={SignInStyles.container}>
+      <View style={SignInStyles.Imagecontainer}>
+        <Image style={SignInStyles.Image} source={LOGO} />
+      </View>
+      <View style={SignInStyles.FormContainer}>
+        <FormItem>
+          <FormLabel label="Account" />
+          <FormInput />
+        </FormItem>
+        <FormItem>
+          <FormLabel label="Password" />
+          <FormInput />
+        </FormItem>
+        <FormSignInBtn />
+      </View>
+    </ScrollView>
+  );
+};
+
+const SignInStyles = StyleSheet.create({
+  container: {
+    backgroundColor: "#fff",
+    flex: 1,
+    paddingTop: StatusHeight,
+    paddingHorizontal: PaddingHorizontal,
+  },
+  Imagecontainer: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 24,
+  },
+  Image: {
+    width: 80,
+    height: 80,
+  },
+  FormContainer: {},
+});
+
+export default SignIn;
