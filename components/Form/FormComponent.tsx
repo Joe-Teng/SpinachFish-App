@@ -81,56 +81,6 @@ const FormItem: React.FC = (props) => {
   return <View style={FormStyles.FormItemStyles}>{props?.children}</View>;
 };
 
-interface IFormSignInBtn {
-  title?: string;
-}
-const FormSignInBtn: React.FC<IFormSignInBtn> = (props) => {
-  const FadeInView = (props) => {
-    const fadeAnim = useRef(new Animated.Value(320)).current; // Initial value for opacity: 0
-
-    React.useEffect(() => {
-      Animated.timing(fadeAnim, {
-        toValue: 52,
-        duration: 1000,
-        useNativeDriver: false,
-      }).start();
-    }, [fadeAnim]);
-
-    return (
-      <Animated.View
-        style={{
-          width: fadeAnim,
-        }}
-      >
-        {props.children}
-      </Animated.View>
-    );
-  };
-
-  const { title = `SIGN   IN` } = props;
-  return (
-    <FadeInView>
-      <LinearGradinet
-        colors={ThemeBgColor}
-        style={FormStyles.FormSignInBtnStyles}
-      >
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={() => {
-            console.log(
-              "%cFormComponent.tsx line:114 111",
-              "color: #007acc;",
-              111
-            );
-          }}
-        >
-          <Text style={FormStyles.FormSignInBtnFontStyles}>{title}</Text>
-        </TouchableOpacity>
-      </LinearGradinet>
-    </FadeInView>
-  );
-};
-
 interface IFormSubmitBtn {
   title?: string;
   onPress?: () => void;
@@ -152,29 +102,25 @@ const FormSubmitBtn: React.FC<IFormSubmitBtn> = (props) => {
       </Animated.View>
     );
   };
+
+  const startAnimation = (value) => {
+    return () => {
+      Animated.timing(fadeAnim, {
+        toValue: value,
+        duration: 600,
+        useNativeDriver: false,
+      }).start(() => {});
+    };
+  };
   const handleSubmit = () => {
     setBtnValue("laoding");
     setLoading(true);
+    startAnimation(52)();
 
     setTimeout(() => {
-      Animated.timing(fadeAnim, {
-        toValue: MAX_BTN_WIDTH,
-        duration: 600,
-        useNativeDriver: false,
-      }).start();
+      startAnimation(MAX_BTN_WIDTH)();
     }, 2000);
   };
-
-  useEffect(() => {
-    if (isLoading) {
-      Animated.timing(fadeAnim, {
-        toValue: ButtonCircleWidth,
-        duration: 600,
-        useNativeDriver: false,
-      }).start();
-      return;
-    }
-  }, [isLoading]);
 
   return (
     <View style={FormStyles.SubmitBtnContainer}>
@@ -185,11 +131,7 @@ const FormSubmitBtn: React.FC<IFormSubmitBtn> = (props) => {
         >
           <TouchableOpacity
             activeOpacity={ButtonActiveOpacity}
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+            style={FormStyles.FormSignInBtnTouchableStyles}
             onPress={() => {
               handleSubmit();
             }}
@@ -238,6 +180,11 @@ const FormStyles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
   },
+  FormSignInBtnTouchableStyles: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
-export { FormLabel, FormInput, FormSignInBtn, FormItem, FormSubmitBtn };
+export { FormLabel, FormInput, FormItem, FormSubmitBtn };

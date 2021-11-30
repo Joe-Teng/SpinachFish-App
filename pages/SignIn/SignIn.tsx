@@ -17,6 +17,7 @@ import {
   FormItem,
   FormSubmitBtn,
 } from "../../components/Form/FormComponent";
+import Loading from "../../components/Loading";
 
 interface ISignIn {}
 
@@ -39,6 +40,7 @@ const SignIn: React.FC = (props: ISignIn) => {
         </FormItem>
         <FormSubmitBtn />
       </View>
+      <Loading />
     </ScrollView>
   );
 };
