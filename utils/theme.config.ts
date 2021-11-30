@@ -1,11 +1,15 @@
-export const ThemeColor = "##409DF3";
-export const ThemeBgColor = ["#309DF3", "#288AE3"];
+import { Dimensions } from "react-native";
+
+export const ThemeColor = "#409DF3";
+export const ThemeBgColor = ["#838EF8", "#3F87FA"];
 export const ThemeLight = "#FFF";
 export const ThemeDark = "#000";
 
-/** Flex */
-export const PaddingHorizontal = 24;
-export const StatusHeight = 68;
+/** Screen */
+export const ScreenWidth = Dimensions.get("window")?.width;
+export const ScreenHeight = Dimensions.get("window")?.height;
+export const ScreenPaddingHorizontal = 24;
+export const StatusBarHeight = 68;
 
 /** Font */
 export const FontS = 12;
@@ -25,3 +29,7 @@ export const InputSignInBtnHeight = 50;
 export const InputSignInBtnBorderRadius = 28;
 export const InputBtnFontStyle = "#FFF";
 export const InputSpacing = 24;
+
+/** Button */
+export const ButtonActiveOpacity = 0.65;
+export const ButtonCircleWidth = 52;

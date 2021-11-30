@@ -7,12 +7,15 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import { StatusHeight, PaddingHorizontal } from "./../../theme.config";
+import {
+  StatusBarHeight,
+  ScreenPaddingHorizontal,
+} from "../../utils/theme.config";
 import {
   FormLabel,
   FormInput,
   FormItem,
-  FormSignInBtn,
+  FormSubmitBtn,
 } from "../../components/Form/FormComponent";
 
 interface ISignIn {}
@@ -34,7 +37,7 @@ const SignIn: React.FC = (props: ISignIn) => {
           <FormLabel label="Password" />
           <FormInput />
         </FormItem>
-        <FormSignInBtn />
+        <FormSubmitBtn />
       </View>
     </ScrollView>
   );
@@ -44,8 +47,8 @@ const SignInStyles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     flex: 1,
-    paddingTop: StatusHeight,
-    paddingHorizontal: PaddingHorizontal,
+    paddingTop: StatusBarHeight,
+    paddingHorizontal: ScreenPaddingHorizontal,
   },
   Imagecontainer: {
     flex: 1,
