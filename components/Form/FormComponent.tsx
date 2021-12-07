@@ -26,6 +26,7 @@ import {
   ButtonCircleWidth,
 } from "../../utils/theme.config";
 import LinearGradinet from "react-native-linear-gradient";
+import IconFormEye from "./IconFormEye";
 
 const MAX_BTN_WIDTH = ScreenWidth - ScreenPaddingHorizontal * 2;
 
@@ -45,6 +46,7 @@ interface IFormInput {
   placeholder?: string;
   validate?: boolean;
   errorMessage?: string;
+  type?: string;
 }
 const FormInput: React.FC<IFormInput> = (props) => {
   const [onFocus, setOnFocus] = useState(false);
@@ -52,22 +54,34 @@ const FormInput: React.FC<IFormInput> = (props) => {
     placeholder = "Please enter",
     errorMessage = "error message",
     validate = true,
+    type = "text",
   } = props;
   return (
     <View>
-      <TextInput
-        style={Object.assign({}, FormStyles.FormInputStyles, {
-          borderWidth: onFocus ? 2 : 1,
-        })}
-        placeholder={placeholder}
-        onFocus={() => {
-          setOnFocus(true);
-        }}
-        onBlur={() => {
-          setOnFocus(false);
-        }}
-        secureTextEntry={true}
-      />
+      <View style={{ position: "relative" }}>
+        <TextInput
+          style={Object.assign({}, FormStyles.FormInputStyles, {
+            borderWidth: onFocus ? 2 : 1,
+            paddingRight:
+              type === "password"
+                ? InputPaddingHorizontal * 2 + 12
+                : InputPaddingHorizontal,
+          })}
+          placeholder={placeholder}
+          onFocus={() => {
+            setOnFocus(true);
+          }}
+          onBlur={() => {
+            setOnFocus(false);
+          }}
+          secureTextEntry={type === "password"}
+        />
+        {type === "password" && (
+          <View style={FormStyles.InputSuffixStyles}>
+            <IconFormEye />
+          </View>
+        )}
+      </View>
       {!validate && errorMessage && (
         <View style={FormStyles.FormErrorStyels}>
           <Text>{errorMessage}</Text>
@@ -91,7 +105,7 @@ const FormSubmitBtn: React.FC<IFormSubmitBtn> = (props) => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const fadeAnim = useRef(new Animated.Value(MAX_BTN_WIDTH)).current;
   const fadeBtnValueOpacity = useRef(new Animated.Value(1)).current;
-  const FadeInView = (props) => {
+  const FadeInView = (props: any) => {
     return (
       <Animated.View
         style={{
@@ -103,7 +117,7 @@ const FormSubmitBtn: React.FC<IFormSubmitBtn> = (props) => {
     );
   };
 
-  const startAnimation = (value) => {
+  const startAnimation = (value: any) => {
     return () => {
       Animated.timing(fadeAnim, {
         toValue: value,
@@ -159,6 +173,11 @@ const FormStyles = StyleSheet.create({
     height: InputHeight,
     borderRadius: InputBorderRadius,
     paddingHorizontal: InputPaddingHorizontal,
+  },
+  InputSuffixStyles: {
+    position: "absolute",
+    top: 14,
+    right: 12,
   },
   FormErrorStyels: {
     paddingLeft: FontM,

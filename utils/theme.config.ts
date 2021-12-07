@@ -33,3 +33,5 @@ export const InputSpacing = 24;
 /** Button */
 export const ButtonActiveOpacity = 0.65;
 export const ButtonCircleWidth = 52;
+export const ButtonDisabledBgColor = "#CDCDCD";
+export const ButtonDisabledFontColor = "#FFF";

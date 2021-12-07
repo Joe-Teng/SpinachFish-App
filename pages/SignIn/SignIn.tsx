@@ -36,11 +36,11 @@ const SignIn: React.FC = (props: ISignIn) => {
         </FormItem>
         <FormItem>
           <FormLabel label="Password" />
-          <FormInput />
+          <FormInput type="password" />
         </FormItem>
         <FormSubmitBtn />
       </View>
-      <Loading />
+      {/* <Loading /> */}
     </ScrollView>
   );
 };
