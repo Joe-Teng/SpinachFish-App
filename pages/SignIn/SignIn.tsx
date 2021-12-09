@@ -1,12 +1,6 @@
-import React from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  Image,
-} from "react-native";
+import React, { useEffect } from "react";
+import { ScrollView, View, StyleSheet, Image } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   StatusBarHeight,
   ScreenPaddingHorizontal,
@@ -17,13 +11,18 @@ import {
   FormItem,
   FormSubmitBtn,
 } from "../../components/Form/FormComponent";
-import Loading from "../../components/Loading";
 
 interface ISignIn {}
 
 const LOGO = require("../../assets/images/logo.png");
 
 const SignIn: React.FC = (props: ISignIn) => {
+  useEffect(() => {
+    (async () => {
+      const value = await AsyncStorage.getItem("@storage_Key");
+      console.log(value);
+    })();
+  }, []);
   return (
     <ScrollView style={SignInStyles.container}>
       <View style={SignInStyles.Imagecontainer}>

@@ -49,23 +49,25 @@ interface IFormInput {
   type?: string;
 }
 const FormInput: React.FC<IFormInput> = (props) => {
-  const [onFocus, setOnFocus] = useState(false);
   const {
     placeholder = "Please enter",
     errorMessage = "error message",
     validate = true,
     type = "text",
   } = props;
+  const [onFocus, setOnFocus] = useState<boolean>(false);
+  const [showPlainText, setShowPlainText] = useState<boolean>(
+    props.type !== "password"
+  );
   return (
     <View>
       <View style={{ position: "relative" }}>
         <TextInput
           style={Object.assign({}, FormStyles.FormInputStyles, {
             borderWidth: onFocus ? 2 : 1,
-            paddingRight:
-              type === "password"
-                ? InputPaddingHorizontal * 2 + 12
-                : InputPaddingHorizontal,
+            paddingRight: !showPlainText
+              ? InputPaddingHorizontal * 2 + 12
+              : InputPaddingHorizontal,
           })}
           placeholder={placeholder}
           onFocus={() => {
@@ -74,12 +76,21 @@ const FormInput: React.FC<IFormInput> = (props) => {
           onBlur={() => {
             setOnFocus(false);
           }}
-          secureTextEntry={type === "password"}
+          secureTextEntry={!showPlainText}
         />
         {type === "password" && (
-          <View style={FormStyles.InputSuffixStyles}>
+          <TouchableOpacity
+            activeOpacity={1}
+            style={FormStyles.InputSuffixStyles}
+            onPressIn={() => {
+              setShowPlainText(true);
+            }}
+            onPressOut={() => {
+              setShowPlainText(false);
+            }}
+          >
             <IconFormEye />
-          </View>
+          </TouchableOpacity>
         )}
       </View>
       {!validate && errorMessage && (
